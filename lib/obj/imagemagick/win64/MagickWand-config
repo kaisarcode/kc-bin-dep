@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# Configure options script for re-calling MagickWand compilation options
+# required to use the MagickWand library.
+#
+
+prefix=/usr/local/lib/kaisarcode/obj/imagemagick/win64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+pkgconfigdir=${libdir}/pkgconfig
+export PKG_CONFIG_LIBDIR="${pkgconfigdir}"
+
+usage="\
+Usage: MagickWand-config [--cflags] [--cppflags] [--exec-prefix] [--ldflags] [--libs] [--prefix] [--version]"
+
+if test $# -eq 0; then
+      echo "${usage}" 1>&2
+      echo "Example: gcc \`MagickWand-config --cflags --cppflags\` -o wand wand.c \`MagickWand-config --ldflags --libs\`" 1>&2
+      exit 1
+fi
+
+while test $# -gt 0; do
+  case "$1" in
+    -*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+    *) optarg= ;;
+  esac
+  case $1 in
+    --prefix=*)
+      prefix=$optarg
+      ;;
+    --prefix)
+      echo $prefix
+      ;;
+    --exec-prefix=*)
+      exec_prefix=$optarg
+      ;;
+    --exec-prefix)
+      echo $exec_prefix
+      ;;
+    --version)
+      echo '6.9.13-16 Q16 '
+      ;;
+    --cc)
+      echo 'x86_64-w64-mingw32-gcc'
+      ;;
+    --cflags)
+      pkg-config --static --cflags MagickWand-6.Q16
+      ;;
+    --cxx)
+      echo 'x86_64-w64-mingw32-g++'
+      ;;
+    --cxxflags)
+      pkg-config --static --cflags MagickWand-6.Q16
+      ;;
+    --cppflags)
+      pkg-config --static --cflags MagickWand-6.Q16
+      ;;
+    --ldflags)
+      pkg-config --static --libs MagickWand-6.Q16
+      ;;
+    --libs)
+      pkg-config --static --libs MagickWand-6.Q16
+      ;;
+    *)
+      echo "${usage}" 1>&2
+      exit 1
+      ;;
+  esac
+  shift
+done
+

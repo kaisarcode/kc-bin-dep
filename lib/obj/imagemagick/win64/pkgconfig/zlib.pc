@@ -1,0 +1,13 @@
+prefix=/usr/local/lib/kaisarcode/obj/imagemagick/win64
+exec_prefix=/usr/local/lib/kaisarcode/obj/imagemagick/win64
+libdir=/usr/local/lib/kaisarcode/obj/imagemagick/win64/lib
+sharedlibdir=/usr/local/lib/kaisarcode/obj/imagemagick/win64/lib
+includedir=/usr/local/lib/kaisarcode/inc/imagemagick
+
+Name: zlib
+Description: zlib compression library
+Version: 1.3.1
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

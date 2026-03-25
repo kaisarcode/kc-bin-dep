@@ -1,0 +1,15 @@
+prefix=/usr/local/lib/kaisarcode/obj/imagemagick/win64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/ImageMagick-6
+includearchdir=/usr/local/lib/kaisarcode/inc/imagemagick/ImageMagick-6
+libname=MagickWand-6.Q16
+ 
+Name: MagickWand
+Description: MagickWand - C API for ImageMagick (ABI Q16)
+URL: https://github.com/ImageMagick/ImageMagick6
+Version: 6.9.13
+Requires: MagickCore-6.Q16
+Cflags: -I${includearchdir} -I${includedir} -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -D_DLL -D_MT
+Libs: -L${libdir} -l${libname} 
+Libs.private: -L${libdir} -l${libname} -lws2_32 -ladvapi32 -lurlmon -lpthread         -L/usr/local/lib/kaisarcode/obj/imagemagick/win64/lib -lpng16 -lz -L/usr/local/lib/kaisarcode/obj/imagemagick/win64/lib -L/usr/local/lib/kaisarcode/obj/imagemagick/win64/lib -lz                          -L/usr/local/lib/kaisarcode/obj/imagemagick/win64/lib -lz    -lgdi32 -luser32 -lm    -lpthread    -lm
