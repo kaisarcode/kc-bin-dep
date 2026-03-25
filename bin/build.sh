@@ -11,7 +11,7 @@
 
 set -e
 
-SCRIPTS="pcre2.sh llama.sh stable-diffusion.sh imagemagick.sh resvg.sh"
+SCRIPTS="zlib.sh libpng.sh sqlite3.sh pcre2.sh llama.sh stable-diffusion.sh imagemagick.sh resvg.sh"
 DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="$DEV_DIR"
 DEPS_ROOT="$(dirname "$DEV_DIR")"
@@ -19,6 +19,9 @@ FORCE_BUILD=0
 
 resolve_vendor_dir() {
     case "$1" in
+        "zlib.sh") printf "%s/lib/obj/zlib\n" "$DEPS_ROOT" ;;
+        "libpng.sh") printf "%s/lib/obj/libpng\n" "$DEPS_ROOT" ;;
+        "sqlite3.sh") printf "%s/lib/obj/sqlite3\n" "$DEPS_ROOT" ;;
         "pcre2.sh") printf "%s/lib/obj/pcre2\n" "$DEPS_ROOT" ;;
         "llama.sh") printf "%s/lib/obj/llama.cpp\n" "$DEPS_ROOT" ;;
         "stable-diffusion.sh") printf "%s/lib/obj/stable-diffusion.cpp\n" "$DEPS_ROOT" ;;

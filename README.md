@@ -31,6 +31,9 @@ The following libraries are built and managed by `kc-bin-dep`:
 - `resvg`: Fast SVG rendering.
 - `pcre2`: Perl Compatible Regular Expressions.
 - `parson`: Lightweight JSON parser.
+- `libpng`: Portable Network Graphics library.
+- `zlib`: Compression library.
+- `sqlite3`: SQL database engine.
 
 ## Managed Toolchains
 
@@ -47,7 +50,7 @@ Invocable locally or remotely:
 
 ```bash
 # Install specific dependencies
-./install.sh llama.cpp imagemagick
+./install.sh llama.cpp imagemagick libpng
 
 # Remote one-liner
 wget -qO- https://raw.githubusercontent.com/kaisarcode/kc-bin-dep/master/install.sh | sudo bash -s -- llama.cpp
