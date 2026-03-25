@@ -52,7 +52,7 @@ Invocable locally or remotely:
 ./install.sh llama.cpp imagemagick libpng
 
 # Remote one-liner
-wget -qO- https://raw.githubusercontent.com/kaisarcode/kc-bin-dep/master/install.sh | sudo bash -s -- llama.cpp
+wget -qO- https://raw.githubusercontent.com/kaisarcode/kc-bin-dep/slave/install.sh | sudo bash -s -- llama.cpp
 ```
 
 ### Developer Installer

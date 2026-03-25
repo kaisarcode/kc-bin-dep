@@ -13,8 +13,8 @@
 set -e
 
 SYS_LIB_ROOT="/usr/local/lib/kaisarcode"
-REPO_RAW="https://raw.githubusercontent.com/kaisarcode/kc-bin-dep/master"
-REPO_ARCHIVE="https://codeload.github.com/kaisarcode/kc-bin-dep/tar.gz/refs/heads/master"
+REPO_RAW="https://raw.githubusercontent.com/kaisarcode/kc-bin-dep/slave"
+REPO_ARCHIVE="https://codeload.github.com/kaisarcode/kc-bin-dep/tar.gz/refs/heads/slave"
 
 # Prints a success message to stdout.
 # @param $1 The message to print.

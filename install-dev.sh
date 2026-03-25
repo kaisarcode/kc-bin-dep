@@ -92,7 +92,7 @@ resolve_lfs() {
         file="$1"
         base="$2"
         rel="${file#$base/}"
-        url="https://media.githubusercontent.com/media/kaisarcode/kc-bin-dep/master/lib/${rel}"
+        url="https://media.githubusercontent.com/media/kaisarcode/kc-bin-dep/slave/lib/${rel}"
         printf "  -> %s\n" "$rel"
         if sudo wget --timeout=15 --tries=3 -qO "$file.tmp" "$url"; then
             sudo mv "$file.tmp" "$file"
