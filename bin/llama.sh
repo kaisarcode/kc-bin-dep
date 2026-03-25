@@ -47,6 +47,18 @@ sanitize_runtime_paths() {
     done
 }
 
+copy_win64_runtime_dlls() {
+    local dst="$1"
+    local dll_path=""
+    local dll_name=""
+    for dll_name in libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll libgomp-1.dll; do
+        dll_path="$(x86_64-w64-mingw32-gcc -print-file-name="$dll_name")"
+        if [ -n "$dll_path" ] && [ "$dll_path" != "$dll_name" ] && [ -f "$dll_path" ]; then
+            cp -d "$dll_path" "$dst/"
+        fi
+    done
+}
+
 compile() {
     arch=$1
     jobs="$(nproc)"
@@ -108,9 +120,14 @@ compile() {
     rm -rf "$obj_dst" "$ggml_dst"
     mkdir -p "$obj_dst" "$ggml_dst"
 
-    # Separate GGML from Llama binaries
-    find "$build_dir" \( -name "libggml*" -o -name "ggml.dll*" \) -exec cp -d {} "$ggml_dst/" \;
+    # Separate GGML from Llama binaries.
+    # Windows emits ggml*.dll without the "lib" prefix, so include both
+    # naming forms when exporting the runtime set.
+    find "$build_dir" \( -name "libggml*" -o -name "ggml*.dll*" \) -exec cp -d {} "$ggml_dst/" \;
     find "$build_dir" \( -name "libllama*" -o -name "llama.dll*" \) -exec cp -d {} "$obj_dst/" \;
+    if [ "$arch" = "win64" ]; then
+        copy_win64_runtime_dlls "$ggml_dst"
+    fi
     
     sanitize_runtime_paths "$arch"
     copy_headers

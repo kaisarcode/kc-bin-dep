@@ -56,12 +56,19 @@ refresh_arch_index() {
     sudo mkdir -p "$arch_dir"
     sudo find "$arch_dir" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
     
-    # Search in obj/<dep>/<arch>
     for obj_root in "$SYS_LIB_ROOT/obj"/*; do
         [ -d "$obj_root/$arch" ] || continue
-        find "$obj_root/$arch" -maxdepth 1 \( -type f -o -type l \) \( -name "*.so" -o -name "*.so.*" \) | while read -r lib_path; do
-            sudo ln -sfn "$lib_path" "$arch_dir/$(basename "$lib_path")"
-        done
+        if [ "$arch" = "win64" ]; then
+            find "$obj_root/$arch" -maxdepth 1 \( -type f -o -type l \) \
+                \( -name "*.dll" -o -name "*.exe" \) | while read -r lib_path; do
+                sudo ln -sfn "$lib_path" "$arch_dir/$(basename "$lib_path")"
+            done
+        else
+            find "$obj_root/$arch" -maxdepth 1 \( -type f -o -type l \) \
+                \( -name "*.so" -o -name "*.so.*" \) | while read -r lib_path; do
+                sudo ln -sfn "$lib_path" "$arch_dir/$(basename "$lib_path")"
+            done
+        fi
     done
 }
 
@@ -174,7 +181,7 @@ main() {
         if [ ${#targets[@]} -gt 0 ]; then
             local missing=false
             for target in "${targets[@]}"; do
-                local target_dir="${SYS_LIB_ROOT}/${target}/${arch}"
+                local target_dir="${SYS_LIB_ROOT}/obj/${target}/${arch}"
                 if [ ! -d "$target_dir" ] || [ -z "$(ls -A "$target_dir" 2>/dev/null | grep -v "^include$" || true)" ]; then
                     missing=true
                     break
@@ -220,8 +227,8 @@ main() {
             fi
         done
     fi
+    refresh_arch_index "$arch"
     if [ "$arch" != "win64" ]; then
-        refresh_arch_index "$arch"
         register_arch_loader_path "$arch"
         sudo ldconfig
     fi
