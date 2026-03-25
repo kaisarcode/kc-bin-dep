@@ -50,6 +50,22 @@ normalize_arch() {
     esac
 }
 
+# Verifies whether one dependency already has usable runtime assets installed.
+# @param $1 Dependency name.
+# @param $2 Architecture name.
+# @return 0 when usable assets are present.
+has_installed_runtime() {
+    local dep="$1"
+    local arch="$2"
+    local target_dir="${SYS_LIB_ROOT}/obj/${dep}/${arch}"
+    [ -d "$target_dir" ] || return 1
+    if [ "$arch" = "win64" ]; then
+        find "$target_dir" -maxdepth 1 -type f \( -name "*.dll" -o -name "*.exe" \) | grep -q .
+        return $?
+    fi
+    find "$target_dir" -maxdepth 1 \( -type f -o -type l \) \( -name "*.so" -o -name "*.so.*" \) | grep -q .
+}
+
 refresh_arch_index() {
     local arch="$1"
     local arch_dir="${SYS_LIB_ROOT}/${arch}"
@@ -181,8 +197,7 @@ main() {
         if [ ${#targets[@]} -gt 0 ]; then
             local missing=false
             for target in "${targets[@]}"; do
-                local target_dir="${SYS_LIB_ROOT}/obj/${target}/${arch}"
-                if [ ! -d "$target_dir" ] || [ -z "$(ls -A "$target_dir" 2>/dev/null | grep -v "^include$" || true)" ]; then
+                if ! has_installed_runtime "$target" "$arch"; then
                     missing=true
                     break
                 fi
