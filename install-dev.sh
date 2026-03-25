@@ -158,14 +158,6 @@ install_sources() {
     [ -d "llama.cpp" ] || git clone --recursive https://github.com/ggml-org/llama.cpp.git llama.cpp
     [ -d "stable-diffusion.cpp" ] || git clone --recursive https://github.com/leejet/stable-diffusion.cpp.git stable-diffusion.cpp
 
-    if [ ! -d "sqlite3" ]; then
-        mkdir -p sqlite3
-        curl -L https://www.sqlite.org/2025/sqlite-amalgamation-3490100.zip -o sqlite3.zip
-        unzip -q sqlite3.zip -d sqlite3-tmp
-        cp sqlite3-tmp/*/sqlite3.c sqlite3-tmp/*/sqlite3.h sqlite3/
-        rm -rf sqlite3-tmp sqlite3.zip
-    fi
-
     if [ ! -d "ImageMagick" ]; then
         curl -L -o im.tar.gz "https://github.com/ImageMagick/ImageMagick6/archive/refs/tags/${IM_VER}.tar.gz"
         tar -xf im.tar.gz
