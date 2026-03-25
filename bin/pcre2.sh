@@ -114,6 +114,11 @@ build_arch() {
     if [ -d "$tmp_install/lib64" ]; then
         find "$tmp_install/lib64" \( -type f -o -type l \) \( -name "*.so*" -o -name "*.dll*" \) -exec cp -d {} "$DEPS_ROOT/lib/obj/pcre2/$arch/" \;
     fi
+    if [ "$arch" = "win64" ]; then
+        find "$build_dir" -maxdepth 1 \( -type f -o -type l \) \
+            \( -name "libpcre2*.dll*" -o -name "libpcre2*.a" \) \
+            -exec cp -d {} "$DEPS_ROOT/lib/obj/pcre2/$arch/" \;
+    fi
     
     rm -rf "$tmp_install"
     printf "\033[32m[OK]\033[0m pcre2 built for %s\n" "$arch"
