@@ -33,7 +33,6 @@ The following libraries are built and managed by `kc-bin-dep`:
 - `parson`: Lightweight JSON parser.
 - `libpng`: Portable Network Graphics library.
 - `zlib`: Compression library.
-- `sqlite3`: SQL database engine.
 
 ## Managed Toolchains
 
