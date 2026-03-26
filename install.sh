@@ -13,8 +13,7 @@
 set -euo pipefail
 
 SYS_LIB_ROOT="/usr/local/lib/kaisarcode"
-REPO_RAW="https://raw.githubusercontent.com/kaisarcode/kc-bin-dep/slave"
-REPO_ARCHIVE="https://codeload.github.com/kaisarcode/kc-bin-dep/tar.gz/refs/heads/slave"
+REPO_ARCHIVE_ROOT="https://codeload.github.com/kaisarcode/kc-bin-dep/tar.gz/refs/heads"
 
 # Prints a success message to stdout.
 # @param $1 The message to print.
@@ -179,6 +178,7 @@ install_obj() {
 main() {
     ensure_root "$@"
     local arch=""
+    local branch="master"
     local targets=()
     local tmp_dir=""
     local lib_source=""
@@ -193,6 +193,15 @@ main() {
                 ;;
             --arch=*)
                 arch=$(normalize_arch "${1#--arch=}")
+                shift
+                ;;
+            --branch)
+                [ $# -ge 2 ] || fail "Missing value for --branch"
+                branch="$2"
+                shift 2
+                ;;
+            --branch=*)
+                branch="${1#--branch=}"
                 shift
                 ;;
             *)
@@ -221,7 +230,7 @@ main() {
         tmp_dir=$(mktemp -d)
         trap 'rm -rf "$tmp_dir"' EXIT
         printf "Downloading dependency pack...\n"
-        wget -qO "$tmp_dir/core.tar.gz" "$REPO_ARCHIVE"
+        wget -qO "$tmp_dir/core.tar.gz" "$REPO_ARCHIVE_ROOT/$branch"
         tar -xzf "$tmp_dir/core.tar.gz" -C "$tmp_dir"
         lib_source=$(ls -d "$tmp_dir"/*/lib 2>/dev/null | head -n 1)
         [ -n "$lib_source" ] || fail "Could not locate lib directory in archive."
