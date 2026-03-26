@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "apps": [
+    {
+      "app_id": "kc-app",
+      "manifest_url": "https://raw.githubusercontent.com/kaisarcode/kc-core/master/kc-al1/kc-app/install.win64.json"
+    }
+  ]
+}

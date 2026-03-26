@@ -9,6 +9,7 @@ projects. It does not contain KaisarCode application sources.
 ## Layout
 
 - `bin/`: Build and maintenance scripts for dependencies.
+- `etc/`: Shared installer manifests and distribution metadata.
 - `lib/inc/<dep>/`: Consolidated development headers.
 - `lib/obj/<dep>/<arch>/`: Compiled binaries and runtime libraries.
 - `src/`: Upstream source trees (local build cache).
