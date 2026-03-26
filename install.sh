@@ -228,7 +228,7 @@ main() {
             fi
         fi
         tmp_dir=$(mktemp -d)
-        trap 'rm -rf "$tmp_dir"' EXIT
+        trap 'rm -rf "${tmp_dir:-}"' EXIT
         printf "Downloading dependency pack...\n"
         wget -qO "$tmp_dir/core.tar.gz" "$REPO_ARCHIVE_ROOT/$branch"
         tar -xzf "$tmp_dir/core.tar.gz" -C "$tmp_dir"
@@ -267,6 +267,8 @@ main() {
         register_arch_loader_path "$arch"
         ldconfig
     fi
+    rm -rf "${tmp_dir:-}"
+    trap - EXIT
     printf "\n\033[1;32m[SUCCESS]\033[0m Dependencies installed.\n"
 }
 
