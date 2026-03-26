@@ -12,6 +12,206 @@
       "path_entries": [
         "bin"
       ]
+    },
+    {
+      "app_id": "kc-dmn",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-dmn/bin/win64/kc-dmn.exe",
+          "target": "bin\\kc-dmn.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-emb",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-emb/bin/win64/kc-emb.exe",
+          "target": "bin\\kc-emb.exe"
+        }
+      ],
+      "path_entries": [
+        "bin",
+        "win64"
+      ]
+    },
+    {
+      "app_id": "kc-flow",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-flow/bin/win64/kc-flow.exe",
+          "target": "bin\\kc-flow.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-http",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-http/bin/win64/kc-http.exe",
+          "target": "bin\\kc-http.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-img",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-img/bin/win64/kc-img.exe",
+          "target": "bin\\kc-img.exe"
+        }
+      ],
+      "path_entries": [
+        "bin",
+        "win64"
+      ]
+    },
+    {
+      "app_id": "kc-llm",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-llm/bin/win64/kc-llm.exe",
+          "target": "bin\\kc-llm.exe"
+        }
+      ],
+      "path_entries": [
+        "bin",
+        "win64"
+      ]
+    },
+    {
+      "app_id": "kc-mdp",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-mdp/bin/win64/kc-mdp.exe",
+          "target": "bin\\kc-mdp.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-min",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-min/bin/win64/kc-min.exe",
+          "target": "bin\\kc-min.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-mmp",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-mmp/bin/win64/kc-mmp.exe",
+          "target": "bin\\kc-mmp.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-net",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-net/bin/win64/kc-net.exe",
+          "target": "bin\\kc-net.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-ngr",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-ngr/bin/win64/kc-ngr.exe",
+          "target": "bin\\kc-ngr.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-rgx",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-rgx/bin/win64/kc-rgx.exe",
+          "target": "bin\\kc-rgx.exe"
+        }
+      ],
+      "path_entries": [
+        "bin",
+        "win64"
+      ]
+    },
+    {
+      "app_id": "kc-sdf",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-sdf/bin/win64/kc-sdf.exe",
+          "target": "bin\\kc-sdf.exe"
+        }
+      ],
+      "path_entries": [
+        "bin",
+        "win64"
+      ]
+    },
+    {
+      "app_id": "kc-tpl",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-tpl/bin/win64/kc-tpl.exe",
+          "target": "bin\\kc-tpl.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
+    },
+    {
+      "app_id": "kc-tpm",
+      "install_root": "C:\\Program Files\\KaisarCode",
+      "files": [
+        {
+          "url": "https://media.githubusercontent.com/media/kaisarcode/kc-core/master/kc-al1/kc-tpm/bin/win64/kc-tpm.exe",
+          "target": "bin\\kc-tpm.exe"
+        }
+      ],
+      "path_entries": [
+        "bin"
+      ]
     }
   ]
 }
