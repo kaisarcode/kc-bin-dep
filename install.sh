@@ -10,7 +10,7 @@
 # Website: https://kaisarcode.com
 # License: GNU GPL v3.0
 
-set -e
+set -euo pipefail
 
 SYS_LIB_ROOT="/usr/local/lib/kaisarcode"
 REPO_RAW="https://raw.githubusercontent.com/kaisarcode/kc-bin-dep/slave"
@@ -25,6 +25,17 @@ pass() { printf "\033[32m[PASS]\033[0m %s\n" "$1"; }
 # @param $1 The error message to print.
 # @return Does not return.
 fail() { printf "\033[31m[FAIL]\033[0m %s\n" "$1" >&2; exit 1; }
+
+# Ensures the installer runs with root privileges.
+# @param $@ Original script arguments.
+# @return Does not return when re-executing.
+ensure_root() {
+    if [ "$(id -u)" -eq 0 ]; then
+        return 0
+    fi
+    command -v sudo >/dev/null 2>&1 || fail "sudo is required."
+    exec sudo bash "$0" "$@"
+}
 
 # Detects the current machine architecture.
 # @return Writes the resolved architecture name to stdout.
@@ -69,20 +80,20 @@ has_installed_runtime() {
 refresh_arch_index() {
     local arch="$1"
     local arch_dir="${SYS_LIB_ROOT}/${arch}"
-    sudo mkdir -p "$arch_dir"
-    sudo find "$arch_dir" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+    mkdir -p "$arch_dir"
+    find "$arch_dir" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
     
     for obj_root in "$SYS_LIB_ROOT/obj"/*; do
         [ -d "$obj_root/$arch" ] || continue
         if [ "$arch" = "win64" ]; then
             find "$obj_root/$arch" -maxdepth 1 \( -type f -o -type l \) \
                 \( -name "*.dll" -o -name "*.exe" \) | while read -r lib_path; do
-                sudo ln -sfn "$lib_path" "$arch_dir/$(basename "$lib_path")"
+                ln -sfn "$lib_path" "$arch_dir/$(basename "$lib_path")"
             done
         else
             find "$obj_root/$arch" -maxdepth 1 \( -type f -o -type l \) \
                 \( -name "*.so" -o -name "*.so.*" \) | while read -r lib_path; do
-                sudo ln -sfn "$lib_path" "$arch_dir/$(basename "$lib_path")"
+                ln -sfn "$lib_path" "$arch_dir/$(basename "$lib_path")"
             done
         fi
     done
@@ -99,7 +110,7 @@ register_arch_loader_path() {
         [ -d "$obj_root/$arch" ] || continue
         printf "%s\n" "$obj_root/$arch" >>"$tmp_file"
     done
-    sudo install -m 0644 "$tmp_file" "$conf_path"
+    install -m 0644 "$tmp_file" "$conf_path"
     rm -f "$tmp_file"
 }
 
@@ -140,8 +151,8 @@ install_inc() {
     local dep=$1
     local src_dir=$2
     local dst_dir="${SYS_LIB_ROOT}/inc/${dep}"
-    sudo mkdir -p "$dst_dir"
-    sudo rsync -a --delete "$src_dir"/ "$dst_dir"/
+    mkdir -p "$dst_dir"
+    rsync -a --delete "$src_dir"/ "$dst_dir"/
     pass "Installed headers: $dep"
 }
 
@@ -157,8 +168,8 @@ install_obj() {
         resolve_lfs "$src_dir" "$lib_base"
     fi
     local dst_dir="${SYS_LIB_ROOT}/obj/${dep}/${arch}"
-    sudo mkdir -p "$dst_dir"
-    sudo rsync -a --delete "$src_dir"/ "$dst_dir"/
+    mkdir -p "$dst_dir"
+    rsync -a --delete "$src_dir"/ "$dst_dir"/
     pass "Installed binaries: $dep ($arch)"
 }
 
@@ -166,7 +177,7 @@ install_obj() {
 # @param $@ Optional list of dependencies to install.
 # @return 0 on success.
 main() {
-    if ! command -v sudo >/dev/null 2>&1; then fail "sudo is required."; fi
+    ensure_root "$@"
     local arch=""
     local targets=()
     local tmp_dir=""
@@ -245,7 +256,7 @@ main() {
     refresh_arch_index "$arch"
     if [ "$arch" != "win64" ]; then
         register_arch_loader_path "$arch"
-        sudo ldconfig
+        ldconfig
     fi
     printf "\n\033[1;32m[SUCCESS]\033[0m Dependencies installed.\n"
 }
