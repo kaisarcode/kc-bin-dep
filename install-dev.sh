@@ -136,6 +136,9 @@ install_dev_headers() {
         local l_inc="$SYS_LIB_ROOT/inc/llama.cpp"
         sudo mkdir -p "$g_inc" "$l_inc"
         sudo rsync -a "$SCRIPT_DIR/src/llama.cpp/include/" "$l_inc/"
+        if [ -f "$SCRIPT_DIR/src/llama.cpp/tools/mtmd/mtmd.h" ]; then
+            sudo install -m 0644 "$SCRIPT_DIR/src/llama.cpp/tools/mtmd/mtmd.h" "$l_inc/mtmd.h"
+        fi
         sudo rsync -a "$SCRIPT_DIR/src/llama.cpp/ggml/include/" "$g_inc/"
         pass "Installed development headers for llama.cpp and ggml."
     fi

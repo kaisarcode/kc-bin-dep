@@ -33,6 +33,7 @@ copy_headers() {
     mkdir -p "$l_dst"
     mkdir -p "$g_dst"
     cp "$DEPS_ROOT/src/llama.cpp/include/"*.h "$l_dst/"
+    cp "$DEPS_ROOT/src/llama.cpp/tools/mtmd/mtmd.h" "$l_dst/"
     cp "$DEPS_ROOT/src/llama.cpp/ggml/include/"*.h "$g_dst/"
 }
 
@@ -111,8 +112,9 @@ compile() {
             ;;
     esac
 
-    printf "  Starting targeted build (Target: llama)...\n"
+    printf "  Starting targeted build (Targets: llama, mtmd)...\n"
     cmake --build "$build_dir" --config Release --target llama --verbose -j"$jobs"
+    cmake --build "$build_dir" --config Release --target mtmd --verbose -j"$jobs"
 
     printf "  Exporting artifacts to global lib/obj/...\n"
     local obj_dst="$DEPS_ROOT/lib/obj/llama.cpp/$arch"
@@ -124,7 +126,7 @@ compile() {
     # Windows emits ggml*.dll without the "lib" prefix, so include both
     # naming forms when exporting the runtime set.
     find "$build_dir" \( -name "libggml*" -o -name "ggml*.dll*" \) -exec cp -d {} "$ggml_dst/" \;
-    find "$build_dir" \( -name "libllama*" -o -name "llama.dll*" \) -exec cp -d {} "$obj_dst/" \;
+    find "$build_dir" \( -name "libllama*" -o -name "llama.dll*" -o -name "libmtmd*" -o -name "mtmd.dll*" \) -exec cp -d {} "$obj_dst/" \;
     if [ "$arch" = "win64" ]; then
         copy_win64_runtime_dlls "$ggml_dst"
     fi
