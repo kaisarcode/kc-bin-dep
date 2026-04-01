@@ -34,6 +34,7 @@ copy_headers() {
     mkdir -p "$g_dst"
     cp "$DEPS_ROOT/src/llama.cpp/include/"*.h "$l_dst/"
     cp "$DEPS_ROOT/src/llama.cpp/tools/mtmd/mtmd.h" "$l_dst/"
+    cp "$DEPS_ROOT/src/llama.cpp/tools/mtmd/mtmd-helper.h" "$l_dst/"
     cp "$DEPS_ROOT/src/llama.cpp/ggml/include/"*.h "$g_dst/"
 }
 

@@ -139,6 +139,9 @@ install_dev_headers() {
         if [ -f "$SCRIPT_DIR/src/llama.cpp/tools/mtmd/mtmd.h" ]; then
             sudo install -m 0644 "$SCRIPT_DIR/src/llama.cpp/tools/mtmd/mtmd.h" "$l_inc/mtmd.h"
         fi
+        if [ -f "$SCRIPT_DIR/src/llama.cpp/tools/mtmd/mtmd-helper.h" ]; then
+            sudo install -m 0644 "$SCRIPT_DIR/src/llama.cpp/tools/mtmd/mtmd-helper.h" "$l_inc/mtmd-helper.h"
+        fi
         sudo rsync -a "$SCRIPT_DIR/src/llama.cpp/ggml/include/" "$g_inc/"
         pass "Installed development headers for llama.cpp and ggml."
     fi
