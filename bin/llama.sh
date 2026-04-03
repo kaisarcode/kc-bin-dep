@@ -82,6 +82,9 @@ compile() {
         -DGGML_BUILD_TESTS=OFF
         -DCMAKE_SKIP_RPATH=ON
         -DCMAKE_SKIP_INSTALL_RPATH=ON
+        -DGGML_BACKEND_DL=ON
+        -DGGML_NATIVE=OFF
+        -DGGML_CPU_ALL_VARIANTS=ON
     )
 
     case "$arch" in
