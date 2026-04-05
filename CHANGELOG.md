@@ -4,18 +4,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [KaisarCode Standards](https://kaisarcode.com).
 
+## [1.1.1] - 2026-04-05
+
+### Added
+- Modular `stable-diffusion.cpp` packaging with separate `stable-diffusion.cpp` and `ggml` runtime exports.
+- Vendored `ggml` public headers for downstream application builds.
+- Multi-architecture export support for `x86_64`, `win64`, `aarch64`, and `arm64-v8a`.
+
+### Changed
+- Standardized exported shared libraries for downstream packaging and runtime resolution.
+
+### Fixed
+- Restored canonical CPU runtime exports for downstream consumers.
+- Fixed Windows and Android shared-library linkage for modular `stable-diffusion.cpp` builds.
+
 ## [1.1.0] - 2026-04-03
 
 ### Added
-- Modular backend support enabled via `GGML_BACKEND_DL=ON` in the `llama.cpp` build pipeline.
-- Standalone dynamic libraries for backends: `libggml-cuda.so` and `libggml-cpu.so`.
-- Full-variant CPU support via `GGML_CPU_ALL_VARIANTS=ON`, ensuring portability across different x86_64 instruction sets.
+- Modular backend support for the `llama.cpp` build pipeline.
+- Standalone runtime libraries for CUDA and CPU backends.
+- Broader CPU variant coverage for portable `x86_64` builds.
 
 ### Changed
-- Updated `bin/llama.sh` to support the new modular library architecture.
-- Re-labeled all `ggml` shared libraries to include base components (`libggml-base.so`, `libggml.so`) for better runtime resolution.
-- Disabled `GGML_NATIVE` to prevent the compiler from generating host-specific instructions, favoring generic compatibility with runtime dispatch.
+- Updated the `llama.cpp` packaging flow to match the modular runtime layout.
+- Standardized `ggml` shared-library naming for more predictable runtime resolution.
+- Favored generic compatibility over host-specific native optimizations.
 
 ### Fixed
-- Resolved missing symbol issues in CUDA backend by ensuring `GGML_BACKEND_DL_IMPL` is correctly propagated through the build system.
-- Corrected shared library linkage paths to support standardized `RPATH` in downstream projects.
+- Fixed CUDA backend symbol resolution in modular builds.
+- Corrected shared-library linkage paths for downstream packaging.

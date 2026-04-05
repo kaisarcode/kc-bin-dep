@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bad1ba4..562efb7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -177,6 +177,9 @@ endif()
+ add_subdirectory(thirdparty)
+ 
+ target_link_libraries(${SD_LIB} PUBLIC ggml zip)
++if ((WIN32 OR ANDROID) AND TARGET ggml-cpu)
++    target_link_libraries(${SD_LIB} PUBLIC ggml-cpu)
++endif()
+ target_include_directories(${SD_LIB} PUBLIC . include)
+ target_include_directories(${SD_LIB} PUBLIC . thirdparty)
+ target_compile_features(${SD_LIB} PUBLIC c_std_11 cxx_std_17)
+diff --git a/src/model.h b/src/model.h
+index 3af35eb..9d68320 100644
+--- a/src/model.h
++++ b/src/model.h
+@@ -11,6 +11,7 @@
+ #include <utility>
+ #include <vector>
+ 
++#include "backend_helper.hpp"
+ #include "ggml-backend.h"
+ #include "ggml.h"
+ #include "gguf.h"

@@ -1,0 +1,17 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 26502373..be7beaf4 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -246,7 +246,11 @@ endif()
+ 
+ function(ggml_add_backend_library backend)
+     if (GGML_BACKEND_DL)
+-        add_library(${backend} MODULE ${ARGN})
++        if (WIN32 OR ANDROID)
++            add_library(${backend} SHARED ${ARGN})
++        else()
++            add_library(${backend} MODULE ${ARGN})
++        endif()
+         # write the shared library to the output directory
+         set_target_properties(${backend} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+         target_compile_definitions(${backend} PRIVATE GGML_BACKEND_DL)
